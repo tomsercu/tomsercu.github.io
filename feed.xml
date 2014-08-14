@@ -6,13 +6,15 @@
 </description>
     <link>http://tomsercu.github.io/</link>
     <atom:link href="http://tomsercu.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 13 Aug 2014 22:17:58 -0400</pubDate>
-    <lastBuildDate>Wed, 13 Aug 2014 22:17:58 -0400</lastBuildDate>
+    <pubDate>Wed, 13 Aug 2014 22:28:27 -0400</pubDate>
+    <lastBuildDate>Wed, 13 Aug 2014 22:28:27 -0400</lastBuildDate>
     <generator>Jekyll v2.3.0</generator>
     
       <item>
         <title>Hello World</title>
-        <description>&lt;p&gt;My first post.&lt;/p&gt;
+        <description>&lt;p&gt;Hello.&lt;/p&gt;
+
+&lt;p&gt;My first post.&lt;/p&gt;
 </description>
         <pubDate>Wed, 13 Aug 2014 17:05:14 -0400</pubDate>
         <link>http://tomsercu.github.io/update/2014/08/13/hello-world.html</link>
