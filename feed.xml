@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tom Sercu's blog</title>
+    <description>Thoughts on data, machines, learning and an occasional pinch of physics.
+</description>
+    <link>http://tomsercu.github.io/</link>
+    <atom:link href="http://tomsercu.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Wed, 13 Aug 2014 22:04:54 -0400</pubDate>
+    <lastBuildDate>Wed, 13 Aug 2014 22:04:54 -0400</lastBuildDate>
+    <generator>Jekyll v2.3.0</generator>
+    
+      <item>
+        <title>Hello World</title>
+        <description>&lt;p&gt;My first post.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 13 Aug 2014 17:05:14 -0400</pubDate>
+        <link>http://tomsercu.github.io/update/2014/08/13/hello-world.html</link>
+        <guid isPermaLink="true">http://tomsercu.github.io/update/2014/08/13/hello-world.html</guid>
+        
+        
+        <category>update</category>
+        
+      </item>
+    
+  </channel>
+</rss>
