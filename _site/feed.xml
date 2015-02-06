@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tom Sercu&#39;s blog</title>
+    <description>Thoughts on data, machines, learning and other things that fascinate me.
+</description>
+    <link>http://tomsercu.github.io/</link>
+    <atom:link href="http://tomsercu.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Fri, 06 Feb 2015 13:17:07 -0500</pubDate>
+    <lastBuildDate>Fri, 06 Feb 2015 13:17:07 -0500</lastBuildDate>
+    <generator>Jekyll v3.0.0-beta1</generator>
+    
+      <item>
+        <title>Notes on installing i3 and what I learned about X window system</title>
+        <description>&lt;h1 id=&quot;i3&quot;&gt;i3&lt;/h1&gt;
+
+&lt;p&gt;I just installed i3 window manager on ubuntu. This post serves as memory of what I did and learned.&lt;/p&gt;
+
+&lt;h1 id=&quot;customizations&quot;&gt;Customizations&lt;/h1&gt;
+
+&lt;h2 id=&quot;remap-caps-lock&quot;&gt;remap caps lock&lt;/h2&gt;
+
+&lt;p&gt;I want to remap caps lock to escape.
+i3 does not load the keyboard settings from Unity, so I created the file ~/.Xmodmap with the lines&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;clear Lock
+keysym &lt;span class=&quot;nv&quot;&gt;Caps_Lock&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Escape&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;and execute it on loading i3 by adding this to my ~/.i3/config:
+exec xmodmap ~/.Xmodmap&lt;/p&gt;
+
+&lt;h2 id=&quot;external-monitor-setup&quot;&gt;external monitor setup&lt;/h2&gt;
+
+&lt;p&gt;I often work with an external monitor.
+Standard I want to detect if an external monitor is connected I want to disable my laptop monitor and auto-config the external monitor.&lt;/p&gt;
+
+&lt;p&gt;Script /usr/local/bin/setup-xrandr&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;xrandr &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; grep &lt;span class=&quot;s2&quot;&gt;&amp;quot;VGA1 connected&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+    xrandr --output LVDS1 --off --output VGA1 --auto
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;xrandr &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; grep &lt;span class=&quot;s2&quot;&gt;&amp;quot;HDMI1 connected&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+        xrandr --output LVDS1 --off --output HDMI1 --auto
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+        xrandr --output VGA1 --off --output HDMI1 --off --output LVDS1 --auto
+    &lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;setup-xrandr `date`&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt; ~/.i3/log&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now I make a shorcut to execute setup-xrandr:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;bindsym &lt;span class=&quot;nv&quot;&gt;$mod&lt;/span&gt;+Shift+X &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;setup-xrandr&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;I tried to automatically execute it in ~/.i3/config by adding the line exec setup-xrandr - but that does execute at all.
+The last line of the script is used for checking when the setup-xrandr script is executed.
+Also, I want it to be loaded before when the display manager starts so I have a pretty login screen.
+I add the setup-xrandr to /etc/lightdm/lightdm.conf under SeatDefaults:
+display-setup-script=/usr/local/bin/setup-xrandr
+Now the script is nicely executed when logging in, but the login screen is in low-res with mirrorred screens still.
+I can live with this for now, but to be continued.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;TODO executing setup-xrandr before the login screen is displayed. Add it to /etc/init/lightdm.conf ?&lt;/li&gt;
+  &lt;li&gt;TODO why is the .i3/config command not executed but the xmodmap is?&lt;/li&gt;
+  &lt;li&gt;TODO check out python-xrandr when switching to more complex dual monitor setup.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;other&quot;&gt;other&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Of course I changed the navigation to vim style navigation with hjkl.&lt;/li&gt;
+  &lt;li&gt;TODO: compile i3 from source for v4.8 and hide edge borders: &lt;code&gt;hide_edge_borders both&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;x-window-system&quot;&gt;X window system&lt;/h1&gt;
+&lt;p&gt;I never delved into this so this is just a summary of what I learned. Please let me know if you see errors.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;X provides the basic framework for interacting with the display, mouse and keyboard.&lt;/li&gt;
+  &lt;li&gt;X11 is the protocol standard.&lt;/li&gt;
+  &lt;li&gt;Xorg is the free implementation, branched off from XFree86.&lt;/li&gt;
+  &lt;li&gt;At boot time, you either get a virtual console terminal (like on a raspberry pi) or a display manager is loaded on the X server console (ctrl+alt+F7).&lt;/li&gt;
+  &lt;li&gt;In ubuntu the default display manager is lightdm.&lt;/li&gt;
+  &lt;li&gt;A display manager starts the X servers, user sessions and login screen (greeter).&lt;/li&gt;
+  &lt;li&gt;lightdm is configured in /etc/lightdm/lightdm.conf with simple things like default window manager.&lt;/li&gt;
+  &lt;li&gt;The display manager checks /usr/share/xsessions/ to see which window managers / xsessions it has availble.&lt;/li&gt;
+  &lt;li&gt;(TODO read more) If a display manager (lightdm) is used, ~/.xinitrc is not read. ~/.xinitrc is just used by startx. So to add logging for i3, I should probably edit the .desktop file in /usr/share/xsessions/&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 06 Feb 2015 00:00:00 -0500</pubDate>
+        <link>http://tomsercu.github.io/linux/2015/02/06/i3-and-x.html</link>
+        <guid isPermaLink="true">http://tomsercu.github.io/linux/2015/02/06/i3-and-x.html</guid>
+        
+        
+        <category>linux</category>
+        
+      </item>
+    
+      <item>
+        <title>Torch (1) - Getting started tutorial</title>
+        <description>&lt;h1 id=&quot;getting-started-with-torch&quot;&gt;Getting started with torch&lt;/h1&gt;
+&lt;p&gt;Torch is an open source machine learning package, focused on deep learning.
+It provides a modular structure to build deep neural networks.
+Getting started with torch can be a little daunting.
+Since I recently went through the process of learning torch and lua, I want to share my experience and share some hints that might be useful if you start out.&lt;/p&gt;
+
+&lt;p&gt;Clement has written a full tutorial which you can find here.
+I recommend following that tutorial, but be aware that it is really written as a complete functioning piece of code you have to analyze by yourself.
+This tutorial is more basic, and aims to get you insight in the modules by playing around on the command line.&lt;/p&gt;
+
+&lt;h1 id=&quot;overview-of-resources&quot;&gt;Overview of resources&lt;/h1&gt;
+&lt;p&gt;(click them and look around briefly, then come back here)
++ The code
++ Docs are always on github
++ Cheatsheet
++ Installing from Clements page
++ Tutorial from Clements page&lt;/p&gt;
+
+&lt;h1 id=&quot;get-your-hands-dirty&quot;&gt;Get your hands dirty&lt;/h1&gt;
+
+&lt;p&gt;If you are familiar with python, these are roughly the mappings of packages. Notice that torch is overloaded as the name of the whole project, and the package providing the basic Tensor datastructure.
++ torch (Tensors) -&amp;gt; numpy.
++ nn -&amp;gt; neural network package containing the modules.&lt;/p&gt;
+
+&lt;h1 id=&quot;some-remarks&quot;&gt;Some remarks&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;as they pop in my head&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sun, 31 Aug 2014 17:05:14 -0400</pubDate>
+        <link>http://tomsercu.github.io/machine-learning/2014/08/31/torch-tips.html</link>
+        <guid isPermaLink="true">http://tomsercu.github.io/machine-learning/2014/08/31/torch-tips.html</guid>
+        
+        
+        <category>machine-learning</category>
+        
+      </item>
+    
+      <item>
+        <title>Open Machine Learning Workshop in NYC, August 2014</title>
+        <description>&lt;p&gt;Last friday, August 22, I attended the Open Machine Learning Workshop hosted by John Langford, Alekh Agarwal and Alina Beygelzimer at Microsof Research in NYC. 
+In this post I want to summarize some of the main topics that were covered.
+The first half of the workshop were presentations from the lead developers of major open source machine learning projects: Liblinear, Vowpal Wabbit, Torch, Theano + Pylearn, Shogun, and Stan.
+After the lunch break Léon Bottou moderated a panel discussion with the authors.&lt;/p&gt;
+
+&lt;p&gt;In this post I want to summarize what each presenter talked about, and the panel discussion.&lt;/p&gt;
+
+&lt;p&gt;CJ Lin is the lead developer of &lt;strong&gt;LIBLINEAR&lt;/strong&gt;, one of the most widely used linear SVM packages (for example wrapped in the LinearSVC classifier from scikit-learn).
+The purpose of liblinear is simply to provide a fast implementation of linear SVMs for general purpose.
+Lin talked about the current selection of solvers used in LIBLINEAR.&lt;/p&gt;
+
+&lt;p&gt;Vowpal Wabbit is a speed-focused online learning package developed by John Langford at MS Research.
+The &lt;/p&gt;
+</description>
+        <pubDate>Mon, 25 Aug 2014 17:05:14 -0400</pubDate>
+        <link>http://tomsercu.github.io/machine-learning/2014/08/25/open-machine-learning-workshop.html</link>
+        <guid isPermaLink="true">http://tomsercu.github.io/machine-learning/2014/08/25/open-machine-learning-workshop.html</guid>
+        
+        
+        <category>machine-learning</category>
+        
+      </item>
+    
+  </channel>
+</rss>

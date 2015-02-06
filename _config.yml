@@ -1,0 +1,13 @@
+# Site settings
+title: Tom Sercu's blog
+email: tom.sercu@nyu.edu
+description: > # this means to ignore newlines until "baseurl:"
+  Thoughts on data, machines, learning and other things that fascinate me.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://tomsercu.github.io" # the base hostname & protocol for your site
+twitter_username: TomSercu
+github_username:  tomsercu
+
+# Build settings
+markdown: kramdown
+exclude: [publish.sh]
