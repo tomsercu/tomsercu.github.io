@@ -1,6 +1,5 @@
 ---
 layout: page
-title: About
 permalink: /about/
 ---
 Student in the Master of Science in Data Science at NYU.  
