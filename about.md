@@ -1,6 +1,9 @@
 ---
+title: "About (stale)"
 layout: page
 permalink: /about/
+order: 3
+published: false
 ---
 Student in the Master of Science in Data Science at NYU.  
 Fascinated by data, learning from data and deep learning.  
