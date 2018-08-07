@@ -11,3 +11,19 @@ timezone: America/New_York
 
 # Build settings
 markdown: kramdown
+
+# defaults
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Tom Sercu"
