@@ -3,6 +3,8 @@ title: "Tom Sercu"
 layout: default
 order: 1
 ---
+![Mug shot]({{ site.url }}/assets/9016_small_2.jpg)
+
 I am a Research Engineer at IBM Research AI, working in the IBM T.J. Watson Research Center in Yorktown Heights, NY.
 I graduated from the MS in Data Science at New York University's Courant Institute of Mathematical Sciences in May 2015.
 Before that, I obtained a B.Sc. (2011) and M.Sc. (2013) in Engineering Physics from Ghent University.
