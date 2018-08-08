@@ -5,7 +5,13 @@ layout: default
 
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
+    <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}
+    {% if page.author %} • {{ page.author }}{% endif %}
+    {% unless page.categories == empty %} • Under: <strong> {% for category in page.categories %}
+        <a href="{{ category | absolute_url | prepend: site.baseurl }}">{{ category }}</a>
+        {% endfor %} </strong> {% endunless %}
+    {% unless page.tags == empty %} • Tagged: <strong>{{ page.tags | join: ', ' }} </strong> {% endunless %}
+    </p>
   </header>
 
   <article class="post-content">

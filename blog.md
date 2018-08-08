@@ -13,5 +13,9 @@ Blog posts may be of variable length and quality.
 
    [{{ post.title }}]({{ post.url | prepend: site.baseurl }})
     {: .post-link }
+
+    {: .post-excerpt }
+    > &nbsp; {{ post.excerpt | remove: '<p>' | remove: '</p>' }}
+    
 {% endfor %}
 
