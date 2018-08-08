@@ -39,6 +39,16 @@ TODO use some jekyll data attributes and liquid iteration, maybe add a fold-out 
 TODO List of recent talks, also truncated with fold-out. 
 
 ## Media
-TODO List of recent media pubs, also truncated with fold-out. 
+* *(2016-11-17)* [I was interviewed by Belgian newspaper "De Standaard" to talk about AI & Deep Learning.
+   ](http://m.standaard.be/cnt/dmf20161118_02579771?shareid=f7c9dc590ca6be652ffbc24bdd81cd28c540f3bf590ed9fbeb24ee0561dbfaa905bbdced9c497f6d1442012a421a0cb3fea4fbb31f2522ce41f12354cbc463ef)
+* I'll do the rest in a neat jekyll way.
+
+## From my time at NYU
+While at NYU, I worked as a Teaching Assistant for two courses, making the following lab material:
+
+* [Torch tutorials](https://github.com/tomsercu/torchtutorial) and 
+    [Assignment 4]({{ "/assets/A4.pdf" | absolute_url }}) (+ [solution]({{ "/assets/A4_solutions.pdf" | absolute_url }}))
+    for Yann LeCun's [Deep Learning Course](http://cilvr.cs.nyu.edu/doku.php?id=courses:deeplearning2015:start) (Spring 2015).
+* Course DS-GA-1007 Programming for Data Science [lab website](https://cims.nyu.edu/~ts2387/dsga1007.html) (Fall 2014).
 
 
