@@ -1,6 +1,7 @@
 ---
 title:  "Technical debt in data science and ML research. A case for sloppy code. Sometimes."
-tags: [machine-learning]
+category: blog
+tags: [perspective, code, machine-learning]
 ---
 * uol toc
 {:toc}

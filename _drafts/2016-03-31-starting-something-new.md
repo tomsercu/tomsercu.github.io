@@ -1,15 +1,11 @@
 ---
-layout: post
 title:  "Starting something new"
-date:   2016-03-31
-categories: productivity
+category: blog
+tags: [perspective, productivity]
 ---
 
-I want to talk about something different than the usual topics on my blog - wait,
-who am I kidding? There's only one post from a year ago.
-
-Anyway, this post is ***talking about why it's so hard to start something new,
-and what I do to overcome the intimidation***.
+In this post I want to talk about why it's so hard to start something new,
+and what I do to overcome the intimidation.
 I write this mostly from my perspective as a computer science researcher,
 and this comes 100 percent from my experience. No guarantees this applies to you.
 But I'd like to hear your opinion or if you can relate.
