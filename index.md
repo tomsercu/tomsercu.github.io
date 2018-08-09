@@ -21,29 +21,33 @@ bringing advances from the deep learning and computer vision communities to spee
 Most recently I worked on Generative Adversarial Networks (GANs), specifically on finding a better distance metric
 between the data distribution and the generated distribution, which leads to fast and stable training.
 
-## Selected Publications
-For a full list, see [google scholar](https://scholar.google.com/citations?user=FMJePIUAAAAJ).
+# Selected Publications
+For an always-up-to-date list, see [google scholar](https://scholar.google.com/citations?user=FMJePIUAAAAJ).
 
-TODO use some jekyll data attributes and liquid iteration, maybe add a fold-out (read more) tag.
+{% assign postlist = site.categories["pubs"] | where: "selected",true %} 
+{% include indexlist.html postlist=postlist postcategory="pubs" %}
 
-## Blog
-[The full blog index](blog)
+[See more](pubs)
 
-### Latest entries:
-{% for post in site.posts limit:3 %}    
-- *{{ post.date | date: "%Y-%m-%d" }}*   
-   **[{{ post.title }}]({{ post.url | prepend: site.baseurl }})**
-{% endfor %}
+# Blog
+{% assign postlist = site.categories["blog"] | slice: 0,3 %} 
+{% include indexlist.html postlist=postlist postcategory="blog" %}
 
-## Talks
-TODO List of recent talks, also truncated with fold-out. 
+[See more (full blog index)](blog)
 
-## Media
-* *(2016-11-17)* [I was interviewed by Belgian newspaper "De Standaard" to talk about AI & Deep Learning.
-   ](http://m.standaard.be/cnt/dmf20161118_02579771?shareid=f7c9dc590ca6be652ffbc24bdd81cd28c540f3bf590ed9fbeb24ee0561dbfaa905bbdced9c497f6d1442012a421a0cb3fea4fbb31f2522ce41f12354cbc463ef)
-* I'll do the rest in a neat jekyll way.
+# Recent Talks
+{% assign postlist = site.categories["talks"] | slice: 0,3 %} 
+{% include indexlist.html postlist=postlist postcategory="talks" %}
 
-## From my time at NYU
+[See more (full talks index)](talks)
+
+# Media
+{% assign postlist = site.categories["media"] | slice: 0,3 %} 
+{% include indexlist.html postlist=postlist postcategory="media" %}
+
+[See more](media)
+
+# From my time at NYU
 While at NYU, I worked as a Teaching Assistant for two courses, making the following lab material:
 
 * [Torch tutorials](https://github.com/tomsercu/torchtutorial) and 
