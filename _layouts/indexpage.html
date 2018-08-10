@@ -1,0 +1,16 @@
+---
+layout: default
+---
+
+<div class="home">
+    
+    <p>{{ page.content }}</p>
+
+    <h1 class="posts-heading">{{ page.title }}</h1>
+
+    {% assign postlist = site.categories[page.category] %} 
+    {% include indexlist.html postlist=postlist postcategory=page.category %}
+
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+
+</div>

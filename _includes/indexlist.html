@@ -1,0 +1,36 @@
+<ul class="post-list">
+{% for post in include.postlist %}
+  <li>
+    <span class="post-meta">
+        {{ post.date | date: "%Y-%m-%d" }}
+        {% unless post.tags == empty %} • Tagged: {{ post.tags | join: ', ' }} {% endunless %}
+    </span>
+
+    <h2 class="post-link">
+        {% if include.postcategory == "media" %}
+          <a href="{{ post.exturl }}">{{ post.title }}</a>
+        {% elsif include.postcategory == "talks" %}
+          {{ post.title }}.
+          {% if post.venue %}<span class="talk-venue">{{ post.venue }}.</span> {% endif %}
+          {% unless post.slides == empty %}
+           [<a href="{{ post.slides | absolute_url }}">Slides</a>]
+          {% endunless %}
+        {% elsif include.postcategory == "pubs" %}
+          {{ post.title }}
+          {% if post.arxivurl %}
+           [<a href="{{ post.arxivurl }}">{{ arXiv }}</a>]
+          {% endif %}
+          <!-- TODO add hover tooltip with thumbnail and proper paper formatting --> 
+        {% else %}
+          <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        {% endif %}
+    </h2>
+
+    {% unless post.excerpt == empty %}
+    <blockquote class="post-excerpt">
+        {{ post.excerpt }}
+    </blockquote>
+    {% endunless %}
+  </li>
+{% endfor %}
+</ul>
