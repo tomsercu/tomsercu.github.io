@@ -250,8 +250,40 @@
     float:  right;
     margin: 8px;
     padding: 8px;
-	border:1px dashed #999;
+	border: 1px dashed #999;
     text-align: center;
     width: 200px;
     max-width: 90%;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    text-align: justify;
+    background-color: #ddd;
+    width: 98%;
+    border: 1px dashed #444;
+    padding: 5px;
+
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 1%;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+img.paperthumbnail {
+    display: block;
+    height: 156px;
+    width: auto;
 }

@@ -13,10 +13,13 @@ import datetime
 
 import ref; ref.init()
 
+xinfo = """
+"""
+
 inpdir = '/Users/tomsercu/Dropbox/ref/documents'
 outdir = 'assets/paper_thumbs'
 tmpdir = os.path.join(outdir,'tmp')
-yamldir = '_posts/pubs/new'
+yamldir = '_posts/pubs'
 # create if necessary the directories we're using for processing and output
 if not os.path.exists(outdir): os.makedirs(outdir)
 if not os.path.exists(tmpdir): os.makedirs(tmpdir)
@@ -27,6 +30,10 @@ headers = 'docid', 'author', 'title', 'year', 'filename', 'bibtex'
 for field, docs in ref.search_documents(headers, 'sercu'):
     if field == 'author': # search author == sercu.
         break
+
+#TODO
+#import arxiv
+#res=arxiv.query(search_query="sercu", max_results=100)
 
 def getrefname(b):
     i,j = b.index('{'),  b.index(',') 
@@ -45,9 +52,9 @@ title: "{}"
 author: "{}"
 journal: "{}"
 year: {}
-arxiv: {}
+arxiv: "{}"
 shortname: {}
-thumbnail: /{}/{}.jpg
+thumbnail: /{}/{}.png
 excerpt: ""
 category: pubs
 ---
@@ -89,11 +96,11 @@ category: pubs
 
     if not os.path.isfile(os.path.join(tmpdir, 'thumb-0.png')):
         # failed to render pdf, replace with missing image
-        missing_thumb_path = os.path.join('static', 'missing.jpg')
+        missing_thumb_path = os.path.join('static', 'missing.png')
         subprocess.call('cp %s %s' % (missing_thumb_path, thumb_path), shell=True)
         print("could not render pdf, creating a missing image placeholder")
     else:
-        cmd = "montage -mode concatenate -quality 80 -tile x1 %s %s" % (os.path.join(tmpdir, 'thumb-*.png'), thumb_path)
+        cmd = "montage -mode concatenate -quality 80 -font Arial -tile x1 %s %s" % (os.path.join(tmpdir, 'thumb-*.png'), thumb_path)
         print(cmd)
         subprocess.call(cmd, shell=True)
 

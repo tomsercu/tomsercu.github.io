@@ -1,30 +1,44 @@
 <ul class="post-list">
 {% for post in include.postlist %}
-  <li>
+  <li class="tooltip">
     <span class="post-meta">
         {{ post.date | date: "%Y-%m-%d" }}
         {% unless post.tags == empty %} • Tagged: {{ post.tags | join: ', ' }} {% endunless %}
     </span>
 
-    <h2 class="post-link">
         {% if include.postcategory == "media" %}
+        <h2 class="post-link">
           <a href="{{ post.exturl }}">{{ post.title }}</a>
+        </h2>
         {% elsif include.postcategory == "talks" %}
+        <h2 class="post-link">
           {{ post.title }}.
           {% if post.venue %}<span class="talk-venue">{{ post.venue }}.</span> {% endif %}
           {% unless post.slides == empty %}
            [<a href="{{ post.slides | absolute_url }}">Slides</a>]
           {% endunless %}
+        </h2>
         {% elsif include.postcategory == "pubs" %}
-          {{ post.title }}
-          {% if post.arxivurl %}
-           [<a href="{{ post.arxivurl }}">{{ arXiv }}</a>]
-          {% endif %}
-          <!-- TODO add hover tooltip with thumbnail and proper paper formatting --> 
+<h2 class="post-link">
+{{post.author}}.
+<strong>{{ post.title }}</strong>.
+In <emph>{{ post.journal }}</emph>,
+{{ post.year }}
+  {% unless post.arxiv == empty %}
+   [<a href="https://arxiv.org/abs/{{ post.arxiv }}">arXiv</a>]
+  {% endunless %}
+</h2>
+<div class="tooltiptext">
+  <img src="{{ post.thumbnail | absolute_url }}" alt="paper thumbnail" class="paperthumbnail" />
+  <p>{{ post.abstract }}
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce blandit eleifend dolor vitae hendrerit. Aenean sollicitudin nulla vel felis pellentesque, id iaculis quam sollicitudin. Phasellus posuere augue sapien, ac tempor lectus dictum a. Quisque sed malesuada lorem. Sed egestas tincidunt nulla, at suscipit nunc eleifend id. Sed ac vehicula libero. Curabitur malesuada purus et purus ullamcorper, vel consectetur urna pretium. Duis consectetur tortor et justo convallis volutpat. Maecenas ut velit in risus aliquet accumsan.
+  </p>
+</div>
         {% else %}
+        <h2 class="post-link">
           <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
         {% endif %}
-    </h2>
 
     {% unless post.excerpt == empty %}
     <blockquote class="post-excerpt">
