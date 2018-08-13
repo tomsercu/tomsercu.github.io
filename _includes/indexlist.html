@@ -22,7 +22,7 @@
 <h2 class="post-link">
 {{post.author}}.
 <strong>{{ post.title }}</strong>.
-In <emph>{{ post.journal }}</emph>,
+<em>{{ post.journal }}</em>,
 {{ post.year }}
   {% unless post.arxiv == empty %}
    [<a href="https://arxiv.org/abs/{{ post.arxiv }}">arXiv</a>]
@@ -31,7 +31,6 @@ In <emph>{{ post.journal }}</emph>,
 <div class="tooltiptext">
   <img src="{{ post.thumbnail | absolute_url }}" alt="paper thumbnail" class="paperthumbnail" />
   <p>{{ post.abstract }}
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce blandit eleifend dolor vitae hendrerit. Aenean sollicitudin nulla vel felis pellentesque, id iaculis quam sollicitudin. Phasellus posuere augue sapien, ac tempor lectus dictum a. Quisque sed malesuada lorem. Sed egestas tincidunt nulla, at suscipit nunc eleifend id. Sed ac vehicula libero. Curabitur malesuada purus et purus ullamcorper, vel consectetur urna pretium. Duis consectetur tortor et justo convallis volutpat. Maecenas ut velit in risus aliquet accumsan.
   </p>
 </div>
         {% else %}
