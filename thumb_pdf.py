@@ -63,6 +63,8 @@ for refname, arxivid, selected in publist:
         author = ', '.join(arxivres['authors'])
         abstract = arxivres['summary']
         assert filter(str.isalnum, str(arxivres['title'])).lower() == filter(str.isalnum, title).lower()
+    # yaml long strings with gt (>) then indented lines.
+    abstract = '\n'.join('    '+li for li in abstract.split('\n'))
     ###### WRITE YAML ALWAYS
     yaml =  """---
 title: "{}"
@@ -73,7 +75,8 @@ arxiv: "{}"
 shortname: {}
 thumbnail: /{}/{}.png
 excerpt: ""
-abstract: "{}"
+abstract: >
+{}
 selected: {}
 category: pubs
 ---
