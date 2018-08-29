@@ -4,12 +4,14 @@ category: blog
 tags: [perspective, machine-learning, sports]
 ---
 
-I started training Judo / Brazilian Jiu-Jitsu about a year ago,
-and realized the different branches of sport Martial Arts (combat sports) 
-represent a variation of the Bias-Variance tradeoff, which I will call the *Bias-Trainability tradeoff*.
-This observation could be relevant to Reinforcement Learning (RL) since 
-martial arts are closely related to self-play RL,
-where we trust the optimization to be very good since it's done by humans.
+I started training Judo / Brazilian Jiu-Jitsu about a year ago.
+Different styles of sport martial arts (combat sports) generalize better or worse to real self-defense situations,
+with an interesting and counter intuitive relation to the constraints on the sport: more constrained grappling sports like BJJ
+can generalize better.
+I realized this represents a variation of the Bias-Variance tradeoff, which I will call the **Bias-Trainability tradeoff**.
+This tradeoff can be relevant to Reinforcement Learning (RL):
+athletes are RL agents where optimization is so good it's probably not the bottleneck.
+So we can look at martial arts to learn how changing the environment/reward influences the optimal policy.
 
 # The rules make the sport
 One of the most important differentiators between different sport martial arts are the rules:
