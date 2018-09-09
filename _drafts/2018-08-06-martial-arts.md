@@ -1,5 +1,5 @@
 ---
-title:  "Bias-Trainability tradeoff in Martial Arts as a model for self-play Reinforcement Learning."
+title:  "Bias-Trainability tradeoff in Martial Arts: a model for RL."
 category: blog
 tags: [perspective, machine-learning, sports]
 ---
@@ -8,16 +8,16 @@ I started training Judo / Brazilian Jiu-Jitsu about a year ago.
 Different styles of sport martial arts (combat sports) generalize better or worse to real self-defense situations,
 with an interesting and counter intuitive relation to the constraints on the sport: more constrained grappling sports like BJJ
 can generalize better.
-I realized this represents a variation of the Bias-Variance tradeoff, which I will call the **Bias-Trainability tradeoff**.
+Realizing this represents a variation of the Bias-Variance tradeoff, I will call this the **Bias-Trainability tradeoff**.
 This tradeoff can be relevant to Reinforcement Learning (RL):
-athletes are RL agents where optimization is so good it's probably not the bottleneck.
-So we can look at martial arts to learn how changing the environment/reward influences the optimal policy.
+athletes are RL agents whose optimization is so good it's probably not the bottleneck.
+So we can look at martial arts to learn how changing the rules/environment/reward influences the optimal policy.
 
 # The rules make the sport
 One of the most important differentiators between different sport martial arts are the rules:
 what defines a Knock Out (KO) or KO substitute, how you get score (in case the fight doesn't end with KO),
 what is not allowed in terms of attacks (in order for it to be a sport),
-and some rules how stalling is avoided (to make sure there is actually something happening).
+and some rules how stalling is avoided (to make sure there is actually something interesting to watch).
 
 For example in Taekwondo, which has a [quite artificial ruleset](https://www.youtube.com/watch?v=7-iIq3ikA3M),
 it's all about kicking for points: straight torso kick (2pt), rotating torso kick (3pt), head kick (3pt), rotating head kick (4pt).
@@ -64,11 +64,14 @@ to see which comes out on top.
 
 # Martial arts = self-play RL.
 <!--We can understand martial arts disciplines as optimizing a motor control policy under a ruleset.-->
-Martial arts is very close to an RL agent training with self-play.
-Athletes are optimizing their skills or "policy" (and even their body) to maximize reward (winning against other athletes).
+Martial arts is very close to an RL agent trained with self-play, afaik 
+[invented by my IBM colleague Gerry Tesauro](https://www.ibm.com/developerworks/library/cc-reinforcement-learning-train-software-agent/index.html) in 1992,
+and also a pillar of the [OpenAI research agenda](https://blog.openai.com/competitive-self-play).
+Athletes are optimizing their skills (motoric control or "policy"), and even their bodies, to maximize reward: winning against other athletes.
 Instead of your classical RL methods to optimize the agent though,
 the optimization is executed by schools of athletes, and is complex but probably very good.
 It checks all fancy boxes: curriculum learning, evolutionary search strategies (successful athletes get copied by others),
+hierarchical RL (you learn individual techniques first, then how to string them together),
 feedback from teachers to students in a dojo, etc.
 So I think it is fair to assume the optimization of the policy is as good as we can expect it to be.
 This means we can **look at martial arts and learn about self-play RL agents where optimization is not a bottleneck**.
@@ -82,12 +85,12 @@ This is very similar to the bias in a supervised classification problem: a class
 will have an optimal classifier that is biased away from the true optimal classifier.
 In martial arts this bias is very significant: techniques and strategies from one sport martial art
 usually do not at all apply to another, or they would be very ineffective.
-The bias also manifests as each sport looking completely different from each other because of its rules.
+The bias also manifests as each sport looking completely different from the others.
 
 Now the bias-variance tradeoff in supervised classification is the observation that a lower-bias classifier typically
-has higher variance caused by fluctuations in the training set, leading to overfitting and thus bad generalization.
+has higher variance: it is more sensitive to fluctuations in the training set, leading to overfitting and thus bad generalization.
 Now do we have an equivalent in martial arts / self-play RL?
-The bias-trainability tradeoff is the observation that
+I'd argue that there is a bias-trainability tradeoff:
 **martial arts with more bias (more restrictive rulesets) can allow for better training, achieving better generalization.**
 
 This is surprisingly similar to the bias-variance tradeoff in supervised classification, although the cause is subtly different.
@@ -110,12 +113,6 @@ It's crucial here that no punching or kicking techniques are allowed, and that K
 This sparring against real resistance makes a huge difference for the level at which the sport can be trained and practiced.
 
 # Observations from MMA
-* Taekwondo, kung fu, aikido: basically useless
-* Simpler ruleset striking sport (boxing, kick boxing, muay thai) were the default styles
-* Surprisingly BJJ had significant wins (UFC 1,2,4).
-* Currently: cross training; i.e. switching rulesets
-    - "switching" on longer timescales, on short timescales techniques from either one of the disciplines is dominant.
-
 So how do all those martial arts styles measure up against each other?
 That's the question that was driving early MMA competitions like UFC 1 and PRIDE FC.
 In broad strokes, most people expected striking sports like boxing, kick boxing and variations to be dominant.
@@ -123,24 +120,26 @@ Surprisingly, BJJ athletes saw very significant wins in those early tournaments,
 (specifically Royce Gracie winning in UFC 1,2, and 4).
 This was very unexpected - he was not trained in using any kind of kicking or punching - only the "soft" BJJ rules!
 In contrast, some more "spectacular" martial arts like karate, kung fu, and taekwondo were basically useless on the MMA mat.
-This confirms that the techniques and systems that are developed under constrained ruleset, and trained under real pressure,
+I'd argue this confirms the bias-trainability trade-off hypothesis:
+the techniques and systems that were developed under a very constrained ruleset, but therefore trained under real pressure,
 hold up against open rules tournaments and thus generalize to real martial / self-defense situations.
 
 Currently the norm is cross-training: athletes from grappling backgrounds train also in striking sports, and vice versa.
-This is like multi-task RL, where training in different but related tasks can help performance in either 
+Maybe this is like multi-task RL, where training in different but related tasks can help performance in either 
 (1) the original objective task, (2) generalization to new tasks (new ruleset).
+Heh maybe I'll keep that idea for another post ;)
 
 # Conclusions for RL
-* Look at 1-on-1 competitive sports as a model for RL self-play, where we can trust the learning/optimization is not the bottleneck.
-* The concept of trainability can be extended: 
+* Look at 1-on-1 competitive sports as a model for RL self-play, where we can assume the learning/optimization is not the bottleneck.
+* Higher bias, more constrained environment or ruleset can lead to better generalization - it's not just a losing game.
+   More constrained rulesets allow the development of complex techniques (complex policy) which can be optimized
+   so well that they generalize: the complex techniques become viable when the constrained ruleset falls away.
+* The concept of trainability could be extended!
     - In combat sports: by limitation of injury, it is not possible to train all techniques at full resistance.
     - In RL agent: more general environment/reward setups could be computationally much more expensive,
         harder to optimize, imply longer traces with sparser reward signal.
         More constrained environment/reward setup can provide more experience within the same computational budget.
     - In robotics some constraints on the policy or reward are typically necessary to avoid damage to the robot.
-* Higher bias, more constrained environment or ruleset can lead to better generalization - it's not just a losing game.
-   More constrained rulesets allow the development of complex techniques (complex policy) which can be optimized
-   so well that they generalize: the complex techniques become viable when the constrained ruleset falls away.
 * Part of the high bias ruleset is introducing a proxy KO in combat sports: instead of actually needing to knock your opponent out,
     a soft alternative is introduced (submissions: chokes or joint locks).
     This suggests designing proxy rewards for RL agents which are easier to achieve and don't drive the agent into the untrainable regime.
