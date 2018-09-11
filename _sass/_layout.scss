@@ -252,7 +252,7 @@
     padding: 8px;
 	border: 1px dashed #999;
     text-align: center;
-    width: 200px;
+    width: 220px;
     max-width: 90%;
 }
 
@@ -290,4 +290,18 @@ img.paperthumbnail {
 }
 p.paperabstract {
     margin: 5px;
+}
+.twitterlink {
+    background-color: rgb(29, 161, 242);
+    /*color: white;*/
+    border-color: rgb(29, 161, 242);
+    padding: 3px;
+    a:link { color: white; }
+    a:visited { color: white; }
+}
+path#whiteicon {
+    fill: white;
+}
+path#blueicon {
+    fill: rgb(29, 161, 242);
 }
