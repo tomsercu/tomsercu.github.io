@@ -40,7 +40,7 @@
 
     {% unless post.excerpt == empty %}
     <blockquote class="post-excerpt">
-        {{ post.excerpt }}
+        {{ post.excerpt | markdownify }}
     </blockquote>
     {% endunless %}
   </li>
