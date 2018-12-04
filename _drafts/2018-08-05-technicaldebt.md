@@ -16,7 +16,7 @@ I will use the metaphor of "technical debt" to quantify what is the optimal deci
 # Trade-off: examples
 Here are some examples from my life, but I think many similar choices will exist in every scientific or engineering
 discipline which running some form of computational experiments or simulations based on code.
-My scripting language is python but mentally swap it out for your favorite Julia/R/Matlab/etc.
+My scripting language of choice is python but mentally swap it out for your favorite Julia/R/Matlab/etc.
 * Exploring a new dataset with some plotting and viewing statistics. Do everything on the command line, in a jupyter notebook,
     or write some general purpose functions? What if you know this dataset will be updated next week and you'll want to do it
     all over?
@@ -71,7 +71,62 @@ I think the main axis to score a project are:
 I realize I haven't really elaborated much on the importance of sloppiness.
 
 # The importance of sloppiness
+I would argue allowing sloppiness is crucial in computational research to get ahead.
+The think -> implement -> test cycle is core to our work, and therefore needs to be fast.
+In this cycle the bottleneck very quickly becomes "implement".
+Being able to implement a new idea quickly (and therefore sloppily) really allows us to go through new ideas, build understanding of published ideas by playing around, etc.
+The uncertainty of follow-through on an idea is why you shouldn't invest too much time in clean code,
+why implementation speed wins over cleanliness.
+However, if an idea is worth following up on, it becomes important to refactor, or maybe just start over from scratch.
 
+# A formula for optimal technical debt
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+* We are looking for the best decision in terms of (expected total time spent)
+* Let's introduce some quantities: $$p(n)$$ is the probability we will do $$n$$ experimental runs. $$F_p(n)$$ is the CDF,
+    so the probaiblity we will do $$n$$ or more experimental runs. $$F_p(1)=1$$ cause we need to do at least one run.
+    Finally $$t'(n,I)$$ is the time spent to do $$n$$ runs under implementation $$I$$, which decomposes in time per run $$t(n,I)$$:
+    $$t'(n,I) = \sum_{j=1}^n t(n,I)$$. So this time per run $$t(n,I)$$ depends on the how many'th run this is,
+    and on the implementation $$I$$.
+    For a quick and dirty implementation $$I_d$$ the trade-off is that $$t(1,I_d)$$ is small,
+    but all consecutive $$t(n>1, I_d)$$ will be larger than for a cleaner implementation $$I_c$$.
+    We call $$m_I$$ the max number of experimental runs we will do at which point we will decide to refactor,
+    also depending on implementation $$I$$ (cleaner implementations will have higher $$m_I$$).
+* The expected time spent under implementation $$I$$ is
+    $$T_I = \mathbb{E}_{n\sim p}[t(n,I)]$$ and can easily be shown
+    to be $$T_I = \sum_{n=1}^{m_I} F_p(n) t(n,I) + \text{future}(n>m_I)$$.
+* *Assumption 1*: we will consider a dirty implementation $$I_d$$ against its proper clean implementation $$I_c$$.
+    After $$m_{I_d}$$ experiments we will be done with the dirty way and refactor to the proper implementation $$I_c$$.
+    We will decide whether we should go dirty first or if we should implement it the proper way immediately.
+* *Assumption 2*: simple breakdown of $$t(n,I)$$: we say the time spent $$t(n,I)$$ simplify to $$t(1,I) = t^1_I$$ initial time,
+    $$t(1<n<m_I,I)=t^x_I$$ time to do a new experiment with this implementation,
+    and $$t(m_I,I)=t^{r}_I$$ time to refactor to the proper implementation once the limit is reached.
+    Under this assumpton, $$T_I = t^1_I + p(n>1) \mathbb{E}_x t^x_I + p(n>m_I) t^r_I + \text{future}(n>m_I)$$.
+    We introduced $$\mathbb{E}_x = \mathbb{E}_{n \sim p(.|n>1)}[n]$$ the expected number of experiments conditioned on
+    $$n>1$$ so in the moderate success regime: we don't abandon right after the first experiment.
+* *Assumption 3*: For dirty implementation $$I_d$$, refactoring to the cleaner implementation $$I_c$$ will take as much
+    time as implementing it from scratch - cause let's be honest that's always the case. Your dirty implementation
+    really doesn't help, and often some mess has accumulated around it which you need to clean up now.
+    So $$t^r_{I_d} = t^1_{I_c}$$.
+* Ok now ready for our main result: the difference $$\Delta_T$$,  the difference in $$T_I$$ between clean and dirty,
+    which summarizes which wil be the shorter path. Positive $$\Delta_T$$ says go dirty.
+    $$\Delta_T = (1-p(m_{I_d})) t^1_c + p(n>1) \mathbb{E}_x (t^x_c - t^x_d)$$
+* A concrete example. You are writing a quick experiment script and wonder if you should just used 
+    global `ALL_CAPS_VARIABLES` whenever you need them, or set up a command line parser.
+    You estimate the chance of continuing past one single experiment to be 50%,
+    expected number of experiments XX THIS IS TROUBLE
+    and after doing 10 experiments you'll be tired of doing it the sloppy way and need to switch. 
+    Now $$\Delta_T = $$.
+
+# Take-aways
+Deciding between a sloppy quick implementation versus the reference clean implementation, we have to think about:
+* the estimated time cost of both implementations, 
+* the difference of time cost for reusing the code for a couple more experiments
+* how many times you would reuse the sloppy code before investing the effort to do the clean implementaiton
+* the probabilities of (a) some success, some further experiments and (b) success, leading to long-term use
+  and need for the clean implementation.
 
 # My rules of thumb
 * Keep all the artefacts. This could become its own blogpost, but whatever I do, however sloppy I allow my code to be:
