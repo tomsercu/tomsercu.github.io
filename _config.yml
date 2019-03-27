@@ -11,6 +11,9 @@ timezone: America/New_York
 
 # Build settings
 markdown: kramdown
+optional_front_matter:
+  enabled: false
+
 
 # defaults
 defaults:
