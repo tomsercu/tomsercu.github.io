@@ -6,11 +6,10 @@ order: 1
 ![Mug shot]({{ site.url }}/assets/9016_small_2.jpg)
 {: .floatrightbox}
 
-I am a Research Engineer at IBM Research AI, working in the IBM T.J. Watson Research Center in Yorktown Heights, NY.
-I graduated from the MS in Data Science at New York University's Courant Institute of Mathematical Sciences in May 2015.
-Before that, I obtained a B.Sc. (2011) and M.Sc. (2013) in Engineering Physics from Ghent University.
-I received the Francqui Foundation Fellowship from the Belgian American Educational Foundation and
-a tuition scholarship from the Center for Data Science for my studies at NYU.
+I am a Research Engineer at Facebook AI Research in NYC.
+Before that I was at IBM Research AI, working in the T.J. Watson Research Center.
+I graduated from the MS in Data Science at New York University's Courant Institute of Mathematical Sciences in May 2015,
+and obtained a B.Sc. (2011) and M.Sc. (2013) in Engineering Physics from Ghent University.
 
 My research interests include
 unsupervised and semi-supervised learning with either no or very small amounts of labeled data,
