@@ -1,0 +1,369 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Guest lecture Deep Learning - CUNY 2019-11-04 - Tom Sercu</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/simple.css">
+        <link rel="stylesheet" href="custom.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+\(
+\def\R{{\mathbb{R}}} 
+\def\L{{\mathcal{L}}} 
+\def\x{{\times}} 
+\)
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+<h1>Deep Learning.</h1>
+<p>Guest lecture /  2019-11-04 </p>
+<p>Intro to Data Science, Fall 2019 @ CCNY</p>
+<p>Course - <a href="https://grantmlong.com/teaching/fall2019/index.html">homepage</a> -
+<a href="https://github.com/grantmlong/itds-fall2019">github</a></p>
+<p>Tom Sercu - <a href="https://tom.sercu.me">homepage</a> - 
+<a href="https://twitter.com/TomSercu">twitter</a> - 
+<a href="https://github.com/tomsercu">github</a>.
+</p>
+<p>This guest lecture - 
+<a href="preface.pdf">Preface</a> -
+<a href="index.html">Main slides</a> -
+<a href="NN_fig.pdf">Figure</a> -
+<a href="https://github.com/grantmlong/itds-fall2019/tree/master/lecture-9">lab (github)</a></p>
+                </section>
+                <section>
+<p>Recapping part 1 (pdf)</p>
+<!--left right two column inspiration:
+    https://stackoverflow.com/questions/30861845/how-to-use-two-column-layout-with-reveal-js
+-->
+<div class='left'>
+    <h3>DL: Successes</h3>
+<p>Object recognition</p>
+<p>Speech recognition</p>
+<p>Machine Translation</p>
+<p>"simple" Input-&gt;Output ML problems!</p>
+</div>
+<div class='right'>
+    <h3>DL: Frontiers</h3>
+<p>Common sense</p>
+</div>
+                </section>
+				<section>
+				<section>
+<h2>What is deep learning?
+opening the black box</h2>
+<ul>
+	<li>Forward propagation
+	<ul>
+		<li>A bad picture</li>
+		<li>A better picture</li>
+	</ul>
+	</li>
+    <li>Backward propagation</li>
+	<ul>
+		<li>Need to change the weights</li>
+		<li>What is \(\nabla_\theta \L(\theta) \)</li>
+	</ul>
+	</li>
+    <li>What's the big deal</li>
+</ul>
+<p><span style="font-size:0.5em">Somewhat based on https://campus.datacamp.com/courses/deep-learning-in-python</span></p>
+                </section>
+                <section>
+<h2>Forward propagation</h2>
+<div class='left'>
+<img class="plain" data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/300px-Colored_neural_network.svg.png">
+</div>
+<div class='right'>
+<div class="fragment">
+$$h(x) = g(W_1 x + b_1)$$
+$$y(h(x)) = W_2 h(x) + b_2$$
+</div>
+<div class="fragment">
+$$x \in \R^3 \,\,\,
+h \in \R^4 \,\,\,
+y \in \R^2$$
+</div>
+<div class="fragment">
+    $$W_1 \in \R^{4 \x 3} \,\,\,
+b_1 \in \R^4 $$
+$$
+W_2 \in \R^{2\x4} \,\,\,
+b_2 \in \R^2
+$$
+</div>
+</div>
+                </section>
+                <section>
+                    <h2>DL: better picture</h2>
+                    
+<a href="NN_fig.pdf">Figure</a>
+                </section>
+                <section>
+                    <h2>DL: better picture</h2>
+                    <ul class="spaced">
+                        <li>All weights/parameters: \( \quad \theta = [W_1, b_1, W_2, b_2] \) </li>
+                        <li>The loss = scalar measure how bad $y(x, \theta)$ is.
+                        <ul>
+                            <li>For a single sample: \( \quad   \ell(y(x, \theta), y_t) \) </li>
+                            <li>For a dataset:  \(  \quad \mathcal{L}(\theta) = \sum_{x,y_t \in D} \ell(y(x, \theta), y_t) \) </li>
+                        </ul>
+                        </li>
+                        <li>We need to change the weights \( \theta \)  <br />to improve loss \( \L(\theta) \).</li>
+                    </ul>
+                </section>
+                <section>
+                    <ul class="spaced">
+                        <li>How to change weights \( \theta \)  to improve loss \( \L(\theta) \)?</li>
+                        <li>Backprop: compute \( \nabla_\theta \mathcal{L}(\theta) = \left[
+                            \frac{\partial \mathcal{L}}{\partial W_1},
+                            \frac{\partial \mathcal{L}}{\partial b_1},
+                            \frac{\partial \mathcal{L}}{\partial W_2},
+                            \frac{\partial \mathcal{L}}{\partial b_2} \right]
+                            \) 
+                        </li>
+                        <li>\( \nabla_\theta \mathcal{L}(\theta) \) = what happens to the loss if I wiggle \( \theta \)</li>
+                        <li>Backprop: the chain rule on an arbitrary graph</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>DL: What's the big deal?</h2>
+                    <ul>
+                    <li>Stack more layers<span class="fragment">: <b>deep</b> learning... </span></li>
+                    <li class="fragment">Universal function approximator</li>
+                    <li class="fragment">Parametrization: build in prior knowledge
+                        <ul>
+                            <li>convolutional: locality and translation invariance</li>
+                            <li>recurrent: sequential nature of data</li>
+                        </ul>
+                    <li class="fragment">BUT
+                    <ul>
+                        <li class="fragment">non-convex optimization: all bets are off</li>
+                        <li class="fragment">no bounds, no guarantees</li>
+                        <li class="fragment">hard to proof anything</li>
+                    </ul>
+                    <li class="fragment">It works</li>
+                </section>
+                <section>
+                    <h3>Deep Learning: TLDR</h3>
+                    <h2 style="margin-top: 2em">Learn a hierarchy of features</h2>
+                </section>
+
+                </section>
+
+
+
+                <section>
+				<section>
+<h2>The framework ecosystem</h2>
+<img class="floatimg plain" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/968319/images/5557688/pasted-from-clipboard.png">
+<img class="floatimg plain" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/968319/images/5557690/pasted-from-clipboard.png">
+<img class="floatimg plain" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/968319/images/5557691/pasted-from-clipboard.png">
+<img class="floatimg plain" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/968319/images/5557692/pasted-from-clipboard.png">
+<img class="floatimg plain" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/968319/images/5557693/pasted-from-clipboard.png">
+                </section>
+                <section>
+<h2>The framework ecosystem</h2>
+<ul>
+	<li>Old times
+	<ul>
+		<li>theano (U Montreal, Y Bengio group)</li>
+		<li>torch (NYU, Yann LeCun group)</li>
+		<li>MATLAB (U Toronto, Geoff Hinton ;)</li>
+	</ul>
+	</li>
+	<li>Now
+	<ul>
+		<li>tensorflow (Google, conceptually close to theano)
+		<ul>
+			<li>keras will become new standard</li>
+		</ul>
+		</li>
+		<li>pytorch (FAIR, directly descending from torch)</li>
+		<li>ONNX &lt;- one standard to rule them all
+		<ul>
+			<li>caffe2, chainer, mxnet, etc.</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+                </section>
+                <section>
+<h2>theano / tensorflow design</h2>
+<ul>
+	<li>First define the graph</li>
+	<li>Then run it multiple times (Session)</li>
+    <li>tf: Too low-level for most users</li>
+    <li>Many divergent high level libraries on top
+        <ul>
+            <li>tf.slim, tf.keras, sonnet, tf.layers, ...
+            </li>
+        </ul>
+    </li>
+	<li>Recently Keras  was adopted as standard
+        <ul><li>Torch-like design</li></ul>
+    </li>
+</ul>
+                </section>
+                <section>
+<h2>pytorch design</h2>
+<ul>
+    <li>Construct the computational graph on the go<br />
+		(while doing the forward pass)
+	</li>
+	<li>"define by run"</li>
+	<li>Reduces boilerplate code *a lot*</li>
+	<li>Flexibility: forward pass can be different every iteration (depending on input)</li>
+	<li>tf tries to imitate this model with "eager mode"</li>
+</ul>
+                </section>
+                <section>
+<div style="text-align:center;">
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">I&#39;ve been using PyTorch a few months now and I&#39;ve never felt better. I have more energy. My skin is clearer. My eye sight has improved.</p>&mdash; Andrej Karpathy (@karpathy) <a href="https://twitter.com/karpathy/status/868178954032513024?ref_src=twsrc%5Etfw">May 26, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+                </section>
+                </section>
+
+            <section> <!-- advice -->
+            <section id="fragments">
+<h2>my advice for learning DL</h2>
+<h1 class="fragment">Just Do It</h1>
+            </section>
+            <section>
+<blockquote cite="Richard Feyman">
+&ldquo;
+    What I cannot create, <br />
+    I do not understand
+&rdquo;
+</blockquote>
+<p style="margin-top: 2em;">Richard Feyman</p>
+            </section>
+            <section>
+<h2>actual advice</h2>
+<ul>
+	<li class="fragment">Work in two stages
+	<ol>
+		<li class="fragment">Fast iteration (playground) &rarr; notebooks</li>
+        <li class="fragment">Condense it &rarr; version controlled python scripts </li>
+	</ol>
+	</li>
+	<li class="fragment">1. Fast iteration stage:
+	<ul>
+		<li>take everything apart</li>
+		<li>no structure, no abstractions</li>
+	</ul>
+	</li>
+	<li class="fragment">2. Condense it
+	<ul>
+		<li>carefully think about the right abstractions</li>
+        <li>Use frameworks (e.g. <a href="https://github.com/williamFalcon/pytorch-lightning">pytorch-lightning</a>, ...)</li>
+	</ul>
+	</li>
+	<li class="fragment">github repo's can be a great starting point
+	<ul class="fragment">
+		<li>..but start from scratch a couple times</li>
+	</ul>
+    </li>
+</ul>
+            </section>
+            </section>
+            <section>
+            <section>
+<h1>DL: math</h1>
+<ul>
+	<li>ML = optimization</li>
+	<li>Gradient descent</li>
+	<li>SGD = Stochastic gradient descent</li>
+	<li>Backpropagation revisited</li>
+	<li>Beyond SGD</li>
+</ul>
+            </section>
+            <section>
+<h2>ML = optimization</h2>
+<p style="margin: 1.3em;">This is all of ML:</p>
+$$\arg\min_\theta \L(\theta)$$
+            </section>
+            <section>
+<h2>Gradient descent</h2>
+<p style="margin: 1.3em;">Find argmin by taking little steps $\alpha$ along :</p>
+$$\nabla_\theta \L(\theta)$$
+<p class="fragment" style="margin-top: 1em">
+$$\theta \gets \theta - \alpha \nabla_\theta \L(\theta)$$
+</p>
+            </section>
+            <section>
+<h2>Stochastic Gradient descent</h2>
+<p style="margin: 1em;">Oops \(\nabla_\theta \L(\theta)\) is expensive, sums over all data.</p>
+<p style="margin: 1em;">Ok instead of \(\L (\theta) = \sum_{x,y \in D} \ell(x,y; \theta) \)</p>
+<p style="margin: 1em;">Let us use  \(\L^{mb} (\theta) = \sum_{x,y \in mb} \ell(x,y; \theta) \)</p>
+<p style="margin: 1em;">\(\L^{mb} (\theta) \) is the loss for one minibatch.</p>
+            </section>
+            <section>
+<h2>Backpropagation</h2>
+<p style="margin: 1em;">Compute \( \nabla_\theta \L^{mb} (\theta) \)
+by chain rule:</p>
+<p>reverse the computation graph. </p>
+            </section>
+            <section>
+<h2>Beyond SGD</h2>
+<ul class="spaced">
+    <li>SGD is the simplest thing you can do. <br />
+        What else is out there?</li>
+    <li>Second order optimization.. meh </li>
+    <li>Adaptive learning rate methods </li>
+</ul>
+            </section>
+            </section>
+            <section>
+<h1>Warning about overfitting</h1>
+<h3>with deep learning, <br />
+you can (over)fit anything you want</h3>
+            </section>
+
+            <!--END SLIDES-->
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/math/math.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
