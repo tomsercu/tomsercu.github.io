@@ -11,14 +11,14 @@ Before that I was at IBM Research AI, working in the T.J. Watson Research Center
 I graduated from the MS in Data Science at New York University's Courant Institute of Mathematical Sciences in May 2015,
 and obtained a B.Sc. (2011) and M.Sc. (2013) in Engineering Physics from Ghent University.
 
-My research interests include
-unsupervised and semi-supervised learning with either no or very small amounts of labeled data,
-multimodal learning (i.e. learning representations across different data modalities like images, text, and speech),
-and learning generative models of structured data.
+My research interest is broadly in machine learning / deep learning, including
+learning representations and generative models for physical systems specifically biochemistry,
+unsupervised and semi-supervised learning with either no or very small amounts of labeled data.
+I worked on Generative Adversarial Networks (GANs), specifically on finding a better distance metric
+between the data distribution and the generated distribution, which leads to fast and stable training.
+<!--I worked on multimodal learning: learning representations across different data modalities like images, text, and speech.-->
 I also worked on deep learning approaches to acoustic modeling in speech recognition,
 bringing advances from the deep learning and computer vision communities to speech recognition.
-Most recently I worked on Generative Adversarial Networks (GANs), specifically on finding a better distance metric
-between the data distribution and the generated distribution, which leads to fast and stable training.
 
 # Selected Publications
 For an always-up-to-date list, see [google scholar](https://scholar.google.com/citations?user=FMJePIUAAAAJ).
