@@ -1,0 +1,30 @@
+---
+title: "Sobolev Independence Criterion"
+author: "Youssef Mroueh, Tom Sercu, Mattia Rigotti, Inkit Padhi, Cicero Dos Santos"
+journal: "NeurIPS"
+year: 2019
+arxiv: "1910.14212"
+shortname: mroueh2019sobolev
+thumbnail: /assets/paper_thumbs/mroueh2019sobolev.png
+excerpt: ""
+abstract: >
+    We propose the Sobolev Independence Criterion (SIC), an interpretable
+    dependency measure between a high dimensional random variable X and a response
+    variable Y . SIC decomposes to the sum of feature importance scores and hence
+    can be used for nonlinear feature selection. SIC can be seen as a gradient
+    regularized Integral Probability Metric (IPM) between the joint distribution of
+    the two random variables and the product of their marginals. We use sparsity
+    inducing gradient penalties to promote input sparsity of the critic of the IPM.
+    In the kernel version we show that SIC can be cast as a convex optimization
+    problem by introducing auxiliary variables that play an important role in
+    feature selection as they are normalized feature importance scores. We then
+    present a neural version of SIC where the critic is parameterized as a
+    homogeneous neural network, improving its representation power as well as its
+    interpretability. We conduct experiments validating SIC for feature selection
+    in synthetic and real-world experiments. We show that SIC enables reliable and
+    interpretable discoveries, when used in conjunction with the holdout
+    randomization test and knockoffs to control the False Discovery Rate. Code is
+    available at http://github.com/ibm/sic.
+selected: false
+category: pubs
+---
