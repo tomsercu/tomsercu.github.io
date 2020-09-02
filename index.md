@@ -6,19 +6,22 @@ order: 1
 ![Mug shot]({{ site.url }}/assets/9016_small_2.jpg)
 {: .floatrightbox}
 
-I am a Research Engineer at Facebook AI Research in NYC.
-Before that I was at IBM Research AI, working in the T.J. Watson Research Center.
-I graduated from the MS in Data Science at New York University's Courant Institute of Mathematical Sciences in May 2015,
-and obtained a B.Sc. (2011) and M.Sc. (2013) in Engineering Physics from Ghent University.
+I am a Research Engineer and Tech Lead Manager at Facebook AI Research in NYC.
+With the protein team, we are working to make an impact on structural biology
+using state of the art methods from Artificial Intelligence.
 
-My research interest is broadly in machine learning / deep learning, including
-learning representations and generative models for physical systems specifically biochemistry,
+My past research has covered several areas of machine learning / deep learning, including
+learning representations and generative models for proteins and peptides,
 unsupervised and semi-supervised learning with either no or very small amounts of labeled data.
 I worked on Generative Adversarial Networks (GANs), specifically on finding a better distance metric
 between the data distribution and the generated distribution, which leads to fast and stable training.
-<!--I worked on multimodal learning: learning representations across different data modalities like images, text, and speech.-->
-I also worked on deep learning approaches to acoustic modeling in speech recognition,
+I worked on multimodal learning: learning representations across different data modalities like images, text, and speech.
+And I started my research career working on deep learning approaches to acoustic modeling in speech recognition,
 bringing advances from the deep learning and computer vision communities to speech recognition.
+
+Before facebook, I was at IBM Research AI, in the T.J. Watson Research Center.
+I graduated from the MS in Data Science at New York University's Courant Institute of Mathematical Sciences
+and have a B.Sc./M.Sc. in Engineering Physics from Ghent University.
 
 # Selected Publications
 For an always-up-to-date list, see [google scholar](https://scholar.google.com/citations?user=FMJePIUAAAAJ).
