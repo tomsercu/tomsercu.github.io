@@ -6,7 +6,7 @@ order: 1
 ![Mug shot]({{ site.url }}/assets/9016_small_2.jpg)
 {: .floatrightbox}
 
-I am a Research Engineer and Tech Lead Manager at Facebook AI Research in NYC.
+I am a Research Engineer and Tech Lead Manager for the protein team at Facebook AI Research in NYC.
 With the protein team, we are working to make an impact on structural biology
 using state of the art methods from Artificial Intelligence.
 
