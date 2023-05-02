@@ -31,23 +31,11 @@ For an always-up-to-date list, see [google scholar](https://scholar.google.com/c
 
 [See more](pubs)
 
-# Blog
-{% assign postlist = site.categories["blog"] | slice: 0,3 %} 
-{% include indexlist.html postlist=postlist postcategory="blog" %}
-
-[See more (full blog index)](blog)
-
 # Recent Talks
 {% assign postlist = site.categories["talks"] | slice: 0,3 %} 
 {% include indexlist.html postlist=postlist postcategory="talks" %}
 
 [See more (full talks index)](talks)
-
-# Media
-{% assign postlist = site.categories["media"] | slice: 0,3 %} 
-{% include indexlist.html postlist=postlist postcategory="media" %}
-
-[See more](media)
 
 # From my time at NYU
 While at NYU, I worked as a Teaching Assistant for two courses, making the following lab material:
