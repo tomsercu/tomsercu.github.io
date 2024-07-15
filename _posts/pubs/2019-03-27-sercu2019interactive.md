@@ -9,6 +9,6 @@ thumbnail: /assets/paper_thumbs/sercu2019interactive.png
 excerpt: ""
 abstract: >
     
-selected: true
+selected: false
 category: pubs
 ---

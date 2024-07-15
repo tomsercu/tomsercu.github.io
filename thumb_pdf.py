@@ -20,28 +20,50 @@ import arxiv
 # NOTE todo sometime? add openreview id's instead of just arxiv
 # sercu2019interactive, Hkl8EILFdN, false
 publist = """
+hayes2024simulating, , true
+verkuil2022language, , true
+hie2022high, , false
+lin2023evolutionary, , true
+hsu2022learning, , false
+rao2021msa, , false
+rao2020transformer, , false
+meier2021language, , false
+sercu2020neural, , false
+rives2021biological, , true
+das2021accelerated, 2005.11248, true
 mroueh2019sobolev, 1910.14212, false
-sercu2019interactive, , true
+sercu2019interactive, , false
 sercu2019multi, 1907.13121, false
 dognin2019wasserstein, 1902.04999, false
 das2018pepcvae, 1810.07743, false
 chen2018big, 1807.03848, false
-mroueh2018sobolev, 1805.12062, true
+mroueh2018sobolev, 1805.12062, false
 dognin2018improved, 1805.00063, false
-sercu2017semi, 1712.02505, true
+sercu2017semi, 1712.02505, false
 mroueh2017sobolev, 1711.04894, false
 saon2017english, 1703.02136, false
 sercu2017network, , false
 mroueh2017fisher, 1705.09675, false
 mroueh2017mcgan, 1702.08398, false
-sercu2016dense, 1611.09288, true
+sercu2016dense, 1611.09288, false
 sercu2016advances, 1604.01792, false
 saon2016ibm, 1604.08242, false
 sercu2015very, 1509.08967, true
 """
 publist = [ [x.strip() for x in entry.split(',')] for entry in publist.strip().split('\n')]
 pub_dates_manual = { # default: get them from arXiv
-    'sercu2017network': '2017-03-05',
+                    'hayes2024simulating': '2024-06-25',
+                    'verkuil2022language': '2022-12-22',
+                    'hie2022high': '2022-12-22',
+                    'lin2023evolutionary': '2022-12-21',
+                    'rives2021biological': '2021-04-05',
+                    'hsu2022learning': '2022-04-10',
+                    'rao2021msa': '2021-08-27',
+                    'rao2020transformer': '2020-12-15',
+                    'meier2021language': '2021-07-10',
+                    'sercu2020neural': '2021-04-11',
+                    'das2021accelerated': '2021-06-01',
+                    'sercu2017network': '2017-03-05',
     'sercu2019interactive': '2019-03-27',
 }
 inpdir = '/Users/tsercu/Dropbox/ref/documents'
@@ -80,7 +102,7 @@ category: pubs
 
 def query_res(refname):
     query = "SELECT {} from documents WHERE bibtex LIKE '%{}%'".format(','.join(headers), refname)
-    refres = list(ref.con.execute(query).next())
+    refres = list(ref.con.execute(query).fetchone())
     author, title, year, filename, bibtex = refres
     bibdic = ref.parse_bibtex(bibtex)
     author = bibdic['author'] # include firstnames 
@@ -93,12 +115,10 @@ def write_yaml_post(refname, arxivid, selected, ref_metadata):
     #refname = getrefname(bibtex)
     print(refname)
     if arxivid:
-        arxivres = arxiv.query(id_list=[arxivid])[0]
-        author = ', '.join(arxivres['authors'])
-        abstract = arxivres['summary']
-        if not filter(str.isalnum, str(arxivres['title'])).lower() == filter(str.isalnum, title).lower():
-            print('WARNING arxiv title "{}" != "{}"'.format(arxivres['title'], title))
-        pubdate = arxivres['published'].split('T')[0]
+        arxivres = next(arxiv.Search(id_list=[arxivid], max_results=1).results())
+        author = ', '.join(x.name for x in arxivres.authors)
+        abstract = arxivres.summary
+        pubdate = arxivres.published.isoformat().split('T')[0]
     else:
         pubdate = pub_dates_manual[refname]
     # yaml long strings with gt (>) then indented lines.
@@ -155,9 +175,10 @@ def make_thumbnail(refname, arxivid, selected, ref_metadata):
     time.sleep(0.01) # silly way for allowing for ctrl+c termination
 
 ## CHECK IF ANY ARE MISSED
-arxivlist = arxiv.query(query="sercu", max_results=100)
+arxivlist = arxiv.Search(query="sercu", max_results=100)
+arxivlist = list(arxivlist.results())
 # hah got a pretty unique last name, first of my name to publish on arxiv
-arxivset  = set([r['id'][-12:-2] for r in arxivlist])
+arxivset  = set([r.entry_id[-12:-2] for r in arxivlist])
 pubset    = set([x[1] for x in publist if x[1]])
 notcovered = arxivset - pubset
 if notcovered:

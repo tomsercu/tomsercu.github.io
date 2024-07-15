@@ -21,6 +21,6 @@ abstract: >
     transitions between distributions, avoiding large gradients from the critic.
     This analysis in a simplified particle setting provides insight in paths to
     equilibrium in GANs.
-selected: true
+selected: false
 category: pubs
 ---
